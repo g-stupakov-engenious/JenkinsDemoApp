@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'feature/ci-config', url: 'https://github.com/g-stupakov-engenious/JenkinsDemoApp.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'Building the iOS app...'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Running unit and UI tests...'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo '✅ Build completed successfully.'
+        }
+        failure {
+            echo '❌ Build failed.'
+        }
+    }
+}
